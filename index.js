@@ -1,7 +1,9 @@
 const app = require('express')();
+const cors = require('cors')
 
 const PORT = process.env.PORT || 5000;
 
+app.use(cors());
 app.use('/public', (req, res) => {
   res.json('I am public route!');
 });
