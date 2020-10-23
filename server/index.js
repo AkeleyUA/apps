@@ -1,11 +1,12 @@
 const app = require("express")();
-const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
-
 const PORT = process.env.PORT || 5000;
 
-if (dotenv.error) {
-  throw new Error(dotenv.error);
+if (process.env.NODE_ENV === "dev") {
+  const dotenv = require("dotenv").config();
+  if (dotenv.error) {
+    throw new Error(dotenv.error);
+  }
 }
 
 const start = async () => {
