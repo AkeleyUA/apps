@@ -1,5 +1,7 @@
-const app = require("express")();
+const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
+const app = express();
 const PORT = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV === "dev") {
@@ -7,6 +9,13 @@ if (process.env.NODE_ENV === "dev") {
   if (dotenv.error) {
     throw new Error(dotenv.error);
   }
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.use('/', express.static(path.join(__dirname, "client", "build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
 const start = async () => {
